@@ -1,4 +1,4 @@
-import { InputSearchCity } from '../../features'
+import { InputSearchCity, SliderTemperature } from '../../features'
 import './WeatherPage.css'
 
 const WeatherPage = () => {
@@ -13,6 +13,11 @@ const WeatherPage = () => {
                 '🚀 Line: 9 👈 🆚 👉 ==== n-console: textSearch',
                 textSearch
               )
+            }
+          />
+          <SliderTemperature
+            onChangeTemperature={(temper: number) =>
+              console.log('🚀 Line: 17 👈 🆚 👉 ==== n-console: e', temper)
             }
           />
         </div>
