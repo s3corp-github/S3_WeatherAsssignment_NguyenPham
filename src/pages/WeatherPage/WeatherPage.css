@@ -1,0 +1,25 @@
+.weather {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.weather__box {
+  max-width: 500px;
+  width: 100%;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.weather__box__title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.weather__box__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 1rem;
+}

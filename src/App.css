@@ -1,0 +1,14 @@
+.app {
+  width: 100dvw;
+  height: 100dvh;
+  overflow: auto;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-color: #f26b42;
+  --main-color-bold: #fa5523;
+}
