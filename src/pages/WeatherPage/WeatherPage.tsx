@@ -1,4 +1,5 @@
 import { InputSearchCity, SliderTemperature } from '../../features'
+import { CardInfoCity } from '../../widgets'
 import './WeatherPage.css'
 
 const WeatherPage = () => {
@@ -20,6 +21,7 @@ const WeatherPage = () => {
               console.log('🚀 Line: 17 👈 🆚 👉 ==== n-console: e', temper)
             }
           />
+          <CardInfoCity />
         </div>
       </div>
     </div>
