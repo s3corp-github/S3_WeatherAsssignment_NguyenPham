@@ -3,40 +3,53 @@
   align-items: center;
   gap: 1rem;
 }
-.slider-temperature__slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  border-radius: 5px;
+.slider-temperature__value {
+  min-width: 50px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-.slider-temperature__slider:hover {
-  opacity: 1;
+.slider-temperature__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: 16px;
+  height: 17px;
+}
+
+/* USE FOR webkit browsers */
+.slider-temperature__slider::-webkit-slider-runnable-track {
+  height: 17px;
+  background: #ccc;
+  border-radius: 17px;
 }
 
 .slider-temperature__slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 15px;
+  height: 17px;
+  width: 17px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid var(--main-color);
+  box-shadow: -407px 0 0 400px var(--main-color);
+}
+
+/* USE FOR Mozilla Firefox  */
+.slider-temperature__slider::-moz-range-track {
   height: 15px;
-  background: var(--main-color);
-  cursor: pointer;
-  border-radius: 20px;
+  background: #ccc;
+  border-radius: 16px;
 }
 
 .slider-temperature__slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: var(--main-color);
-  cursor: pointer;
-}
-
-.slider-temperature__value {
-  min-width: 50px;
-  font-weight: 500;
-  white-space: nowrap;
+  height: 15px;
+  width: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid var(--main-color);
+  box-shadow: -407px 0 0 400px var(--main-color);
 }
