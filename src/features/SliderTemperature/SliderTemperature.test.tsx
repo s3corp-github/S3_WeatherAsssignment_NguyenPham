@@ -1,16 +1,16 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import SliderTemperature from './SliderTemperature';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import SliderTemperature from './SliderTemperature'
+
 describe('SliderTemperature Component', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-  });
+    jest.useFakeTimers()
+  })
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-  });
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  })
   test('renders slider with initial value', () => {
     render(
       <SliderTemperature
@@ -19,15 +19,15 @@ describe('SliderTemperature Component', () => {
         defaultValue={50}
         onChangeTemperature={e => {}}
       />
-    );
+    )
 
-    const slider = screen.getByTestId('slider-temperature');
+    const slider = screen.getByTestId('slider-temperature')
 
-    expect(slider).toBeInTheDocument();
-  });
+    expect(slider).toBeInTheDocument()
+  })
 
   test('calls onChange callback when value changes', () => {
-    const handleChange = jest.fn();
+    const handleChange = jest.fn()
     render(
       <SliderTemperature
         min={0}
@@ -35,40 +35,58 @@ describe('SliderTemperature Component', () => {
         defaultValue={50}
         onChangeTemperature={handleChange}
       />
-    );
+    )
 
-    const slider = screen.getByTestId('slider-temperature');
+    const slider = screen.getByTestId('slider-temperature')
 
-    fireEvent.change(slider, { target: { value: 75 } });
-    jest.advanceTimersByTime(400);
-    expect(slider).toHaveValue('75');
+    fireEvent.change(slider, { target: { value: 75 } })
+    jest.advanceTimersByTime(400)
+    expect(slider).toHaveValue('75')
 
-    expect(handleChange).toHaveBeenCalledTimes(1);
-    expect(handleChange).toHaveBeenCalledWith(75); // Kiểm tra xem callback được gọi với giá trị đúng
-  });
+    expect(handleChange).toHaveBeenCalledTimes(1)
+    expect(handleChange).toHaveBeenCalledWith(75)
+  })
 
-  //   test('changes value when user moves slider', () => {
-  //     render(<SliderTemperature min={0} max={100} defaultValue={50} />);
+  test('changes value when user moves slider', () => {
+    const handleChange = jest.fn()
 
-  //     const slider = screen.getByTestId('slider');
+    render(
+      <SliderTemperature
+        min={0}
+        max={100}
+        defaultValue={50}
+        onChangeTemperature={handleChange}
+      />
+    )
 
-  //     // Thay đổi giá trị của slider
-  //     fireEvent.change(slider, { target: { value: '75' } });
+    const slider = screen.getByTestId('slider-temperature')
 
-  //     expect(slider).toHaveValue('75');
-  //     expect(screen.getByTestId('slider-value')).toHaveTextContent('75');
-  //   });
+    fireEvent.change(slider, { target: { value: '75' } })
+    jest.advanceTimersByTime(400)
 
-  //   test('respects min and max boundaries', () => {
-  //     render(<SliderTemperature min={0} max={100} defaultValue={50} />);
+    expect(slider).toHaveValue('75')
+    expect(screen.getByTestId('slider-value')).toHaveTextContent('75')
+  })
 
-  //     const slider = screen.getByTestId('slider');
+  test('respects min and max boundaries', () => {
+    const handleChange = jest.fn()
+    render(
+      <SliderTemperature
+        min={0}
+        max={100}
+        defaultValue={50}
+        onChangeTemperature={handleChange}
+      />
+    )
 
-  //     // Giá trị vượt quá min và max
-  //     fireEvent.change(slider, { target: { value: '150' } });
-  //     expect(slider.value).toBe('100'); // giá trị max là 100
+    const slider = screen.getByTestId('slider-temperature')
 
-  //     fireEvent.change(slider, { target: { value: '-10' } });
-  //     expect(slider.value).toBe('0'); // giá trị min là 0
-  //   });
-});
+    fireEvent.change(slider, { target: { value: '150' } })
+    jest.advanceTimersByTime(400)
+
+    expect(slider).toHaveValue('100')
+
+    fireEvent.change(slider, { target: { value: '-10' } })
+    expect(slider).toHaveValue('0')
+  })
+})

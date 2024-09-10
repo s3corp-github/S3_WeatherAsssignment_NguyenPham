@@ -1,5 +1,5 @@
-import { WeatherPage } from './pages'
 import './App.css'
+import { WeatherPage } from './pages'
 
 function App() {
   return (
