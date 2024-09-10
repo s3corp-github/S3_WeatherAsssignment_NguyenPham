@@ -1,6 +1,7 @@
 import { ChangeEvent, useCallback, useState } from 'react'
 import './SliderTemperature.css'
-import { debounce } from '../../shared'
+import { debounce, DEFAULT_TEMPERATURE_FILTER } from '../../shared'
+import React from 'react'
 
 interface SliderTemperatureProps {
   min?: number
@@ -10,9 +11,9 @@ interface SliderTemperatureProps {
 }
 
 const SliderTemperature = ({
-  min = 0,
-  max = 100,
-  defaultValue = 20,
+  min = -50,
+  max = 50,
+  defaultValue = DEFAULT_TEMPERATURE_FILTER,
   onChangeTemperature,
 }: SliderTemperatureProps) => {
   const [valueSlider, setValueSlider] = useState(defaultValue)
@@ -21,7 +22,7 @@ const SliderTemperature = ({
   const onChangeSlider = useCallback(
     debounce((value: number) => {
       onChangeTemperature(value)
-    }, 150),
+    }, 100),
     [onChangeTemperature]
   )
 
@@ -37,9 +38,12 @@ const SliderTemperature = ({
           onChangeSlider(+e.target.value)
         }}
         defaultValue={defaultValue}
+        data-testid="slider-temperature"
         className="slider-temperature__slider"
       />
-      <p className="slider-temperature__value">{valueSlider} °C</p>
+      <p className="slider-temperature__value" data-testid="slider-value">
+        {valueSlider} °C
+      </p>
     </div>
   )
 }

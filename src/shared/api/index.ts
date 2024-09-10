@@ -1,0 +1,1 @@
+export { getWeatherCity } from './weatherApi'
