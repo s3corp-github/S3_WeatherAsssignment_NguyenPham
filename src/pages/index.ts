@@ -1,1 +1,1 @@
-export { default as WeatherPage } from './WeatherPage/'
+export { default as WeatherPage } from './WeatherPage/ui'

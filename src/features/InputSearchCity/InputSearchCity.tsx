@@ -5,11 +5,15 @@ import { CityInfo } from '../../entities/russiaCities/models/interfaces'
 import { ClickAwayListener, highlightText } from '../../shared'
 interface InputSearchCityProps {
   onChangeSearchCity(name: string): void
+  isLoading: boolean
 }
 
 const ID_INPUT_SEARCH_CITY = 'search_city'
 
-const InputSearchCity = ({ onChangeSearchCity }: InputSearchCityProps) => {
+const InputSearchCity = ({
+  onChangeSearchCity,
+  isLoading,
+}: InputSearchCityProps) => {
   const [textSearch, setTextSearch] = useState<string>('')
   const [showClearButton, setShowClearButton] = useState<boolean>(false)
   const [showSuggest, setShowSuggest] = useState<boolean>(false)
@@ -91,7 +95,7 @@ const InputSearchCity = ({ onChangeSearchCity }: InputSearchCityProps) => {
         )}
       </div>
       <button className="input-search-city__btn-search" onClick={handleSearch}>
-        Search
+        {isLoading ? 'Search...' : 'Search'}
       </button>
     </div>
   )

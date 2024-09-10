@@ -15,9 +15,10 @@
 }
 
 .card-info-city__name {
-  flex: 1;
-  font-size: 14px;
+  flex: 1 1;
+  font-size: 16px;
   text-align: left;
+  font-weight: bold;
 }
 
 .card-info-city__info {
@@ -35,7 +36,7 @@
   right: 10px;
   width: 24px;
   height: 24px;
-  border-radius: 24px;
+  border-radius: 8px;
   border: 1px solid #cdcdcd;
   display: flex;
   align-items: center;
