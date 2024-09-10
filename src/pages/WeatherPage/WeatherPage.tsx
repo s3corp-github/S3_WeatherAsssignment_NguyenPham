@@ -21,7 +21,9 @@ const WeatherPage = () => {
               console.log('🚀 Line: 17 👈 🆚 👉 ==== n-console: e', temper)
             }
           />
-          <CardInfoCity />
+          <div>
+            <CardInfoCity />
+          </div>
         </div>
       </div>
     </div>
