@@ -8,6 +8,7 @@
   flex: 1;
   display: flex;
   position: relative;
+  flex-wrap: wrap;
 }
 
 /* suggest */

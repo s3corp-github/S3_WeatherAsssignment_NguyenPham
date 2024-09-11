@@ -52,15 +52,16 @@ const useWeatherCities = () => {
   }
 
   const listCitiesFilterTemp = useMemo(() => {
-    return listCities.filter(c => c?.main?.temp >= filterTemperature)
+    return listCities.filter(c => c?.main?.temp <= filterTemperature)
   }, [filterTemperature, listCities])
 
   return {
-    isLoading,
     message,
+    totalCities: listCities?.length,
+    isLoading,
     listCitiesFilterTemp,
-    findCityByName,
     onRemoveCity,
+    findCityByName,
     setFilterTemperature,
   }
 }

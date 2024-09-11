@@ -1,5 +1,4 @@
 .card-info-city {
-  width: 100%;
   border: 1px solid #cdcdcd;
   border-radius: 8px;
   padding: 1rem;
@@ -8,6 +7,9 @@
   align-items: center;
   gap: 1rem;
   position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .card-info-city:hover {
