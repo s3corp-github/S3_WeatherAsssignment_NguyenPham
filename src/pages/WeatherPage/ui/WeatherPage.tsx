@@ -1,18 +1,20 @@
-import { InputSearchCity, SliderTemperature } from '../../../features';
-import { MessageError } from '../../../shared';
-import { CardInfoCity } from '../../../widgets';
-import useWeatherCities from '../lib/useWeatherCities';
-import './WeatherPage.css';
+import { InputSearchCity, SliderTemperature } from '../../../features'
+import { MessageError } from '../../../shared'
+import { CardInfoCity } from '../../../widgets'
+import useWeatherCities from '../lib/useWeatherCities'
+import './WeatherPage.css'
 
 const WeatherPage = () => {
   const {
-    isLoading,
     message,
+    isLoading,
+    totalCities,
     listCitiesFilterTemp,
-    findCityByName,
     onRemoveCity,
+    findCityByName,
     setFilterTemperature,
-  } = useWeatherCities();
+  } = useWeatherCities()
+
   return (
     <div className="weather">
       <div className="weather__box">
@@ -22,11 +24,16 @@ const WeatherPage = () => {
             <InputSearchCity
               isLoading={isLoading}
               onChangeSearchCity={(textSearch: string) => {
-                findCityByName(textSearch);
+                findCityByName(textSearch)
               }}
             />
             <SliderTemperature onChangeTemperature={setFilterTemperature} />
-            <MessageError message={message} />
+            <div className="weather__box__body__action__message">
+              <MessageError message={message} />
+              <p>
+                Show {listCitiesFilterTemp.length}/{totalCities} cities
+              </p>
+            </div>
           </div>
           <div className="weather__box__body__list">
             {!listCitiesFilterTemp?.length ? (
@@ -41,14 +48,14 @@ const WeatherPage = () => {
                     city={city}
                     onRemoveCity={() => onRemoveCity(city)}
                   />
-                );
+                )
               })
             )}
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default WeatherPage;
+export default WeatherPage
