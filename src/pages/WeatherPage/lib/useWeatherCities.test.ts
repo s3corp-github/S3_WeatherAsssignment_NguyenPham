@@ -26,7 +26,7 @@ describe('useWeatherCities', () => {
     mockGetWeatherCity.mockResolvedValue({
       name: 'Moscow',
       sys: { id: 1 },
-      main: { temp: 20 },
+      main: { temp: 10 },
     })
 
     const { result } = renderHook(() => useWeatherCities())

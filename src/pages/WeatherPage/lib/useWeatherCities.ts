@@ -1,68 +1,69 @@
-import { useMemo, useRef, useState } from 'react';
-import { DEFAULT_TEMPERATURE_FILTER, getWeatherCity } from '../../../shared';
-import { WeatherData } from '../../../entities/infoWeather/models/interfaces';
+import { useMemo, useRef, useState } from 'react'
+import { DEFAULT_TEMPERATURE_FILTER, getWeatherCity } from '../../../shared'
+import { WeatherData } from '../../../entities/infoWeather/models/interfaces'
 
 const useWeatherCities = () => {
   const [filterTemperature, setFilterTemperature] = useState<number>(
     DEFAULT_TEMPERATURE_FILTER
-  );
-  const [listCities, setListCities] = useState<WeatherData[]>([]);
-  const [message, setMessage] = useState<string>('');
+  )
+  const [listCities, setListCities] = useState<WeatherData[]>([])
+  const [message, setMessage] = useState<string>('')
   const refListBlockCallApi = useRef<
     {
-      nameSys: string;
-      nameSearch: string;
+      nameSys: string
+      nameSearch: string
     }[]
-  >([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  >([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const findCityByName = async (name: string) => {
-    setMessage('');
+    setMessage('')
     try {
       const invalidateName = refListBlockCallApi.current.some(
         n => n.nameSearch === name
-      );
+      )
       if (invalidateName) {
-        setMessage('The city is already on the list!');
+        setMessage('The city is already on the list!')
       }
       if (!invalidateName && !isLoading && !!name?.length) {
-        setIsLoading(true);
-        const res = await getWeatherCity(name);
+        setIsLoading(true)
+        const res = await getWeatherCity(name)
 
         setListCities(prev => {
           refListBlockCallApi.current = refListBlockCallApi.current.concat({
             nameSearch: name,
             nameSys: res.name,
-          });
-          return prev.concat(res);
-        });
+          })
+          return prev.concat(res)
+        })
       }
     } catch (error) {
-      setMessage((error as Error).message);
+      setMessage((error as Error).message)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const onRemoveCity = (city: WeatherData) => {
-    setListCities(prev => prev.filter(c => c?.sys?.id !== city?.sys?.id));
+    setListCities(prev => prev.filter(c => c?.sys?.id !== city?.sys?.id))
     refListBlockCallApi.current = refListBlockCallApi.current.filter(
       c => c.nameSys !== city.name
-    );
-  };
+    )
+  }
 
   const listCitiesFilterTemp = useMemo(() => {
-    return listCities.filter(c => c?.main?.temp <= filterTemperature);
-  }, [filterTemperature, listCities]);
+    return listCities.filter(c => c?.main?.temp <= filterTemperature)
+  }, [filterTemperature, listCities])
 
   return {
-    isLoading,
     message,
+    totalCities: listCities?.length,
+    isLoading,
     listCitiesFilterTemp,
-    findCityByName,
     onRemoveCity,
+    findCityByName,
     setFilterTemperature,
-  };
-};
+  }
+}
 
-export default useWeatherCities;
+export default useWeatherCities
