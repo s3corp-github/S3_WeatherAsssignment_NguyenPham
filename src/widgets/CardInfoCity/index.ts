@@ -1,1 +1,1 @@
-export { default } from './CardInfoCity'
+export { default } from './ui'

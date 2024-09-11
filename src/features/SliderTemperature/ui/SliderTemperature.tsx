@@ -1,13 +1,12 @@
-import { ChangeEvent, useCallback, useState } from 'react';
-import './SliderTemperature.css';
-import { debounce, DEFAULT_TEMPERATURE_FILTER } from '../../shared';
-import React from 'react';
+import { ChangeEvent, useCallback, useState } from 'react'
+import './SliderTemperature.css'
+import { debounce, DEFAULT_TEMPERATURE_FILTER } from '../../../shared'
 
 interface SliderTemperatureProps {
-  min?: number;
-  max?: number;
-  defaultValue?: number;
-  onChangeTemperature: (value: number) => void;
+  min?: number
+  max?: number
+  defaultValue?: number
+  onChangeTemperature: (value: number) => void
 }
 
 const SliderTemperature = ({
@@ -16,15 +15,15 @@ const SliderTemperature = ({
   defaultValue = DEFAULT_TEMPERATURE_FILTER,
   onChangeTemperature,
 }: SliderTemperatureProps) => {
-  const [valueSlider, setValueSlider] = useState(defaultValue);
+  const [valueSlider, setValueSlider] = useState(defaultValue)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onChangeSlider = useCallback(
     debounce((value: number) => {
-      onChangeTemperature(value);
+      onChangeTemperature(value)
     }, 100),
     [onChangeTemperature]
-  );
+  )
 
   return (
     <div className="slider-temperature">
@@ -35,8 +34,8 @@ const SliderTemperature = ({
           min={min}
           max={max}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setValueSlider(+e.target.value);
-            onChangeSlider(+e.target.value);
+            setValueSlider(+e.target.value)
+            onChangeSlider(+e.target.value)
           }}
           defaultValue={defaultValue}
           data-testid="slider-temperature"
@@ -47,7 +46,7 @@ const SliderTemperature = ({
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SliderTemperature;
+export default SliderTemperature

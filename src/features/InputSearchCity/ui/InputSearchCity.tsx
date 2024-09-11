@@ -1,50 +1,50 @@
-import { ChangeEvent, useMemo, useState } from 'react';
-import './InputSearchCity.css';
-import ruCities from '../../entities/russiaCities/lib/ru_cities.json';
-import { CityInfo } from '../../entities/russiaCities/models/interfaces';
-import { ClickAwayListener, highlightText } from '../../shared';
+import { ChangeEvent, useMemo, useState } from 'react'
+import './InputSearchCity.css'
+import ruCities from '../../../entities/russiaCities/lib/ru_cities.json'
+import { CityInfo } from '../../../entities/russiaCities/models/interfaces'
+import { ClickAwayListener, highlightText } from '../../../shared'
 interface InputSearchCityProps {
-  onChangeSearchCity(name: string): void;
-  isLoading: boolean;
+  onChangeSearchCity(name: string): void
+  isLoading: boolean
 }
 
-const ID_INPUT_SEARCH_CITY = 'search_city';
+const ID_INPUT_SEARCH_CITY = 'search_city'
 
 const InputSearchCity = ({
   onChangeSearchCity,
   isLoading,
 }: InputSearchCityProps) => {
-  const [textSearch, setTextSearch] = useState<string>('');
-  const [showClearButton, setShowClearButton] = useState<boolean>(false);
-  const [showSuggest, setShowSuggest] = useState<boolean>(false);
+  const [textSearch, setTextSearch] = useState<string>('')
+  const [showClearButton, setShowClearButton] = useState<boolean>(false)
+  const [showSuggest, setShowSuggest] = useState<boolean>(false)
 
   const handleSearch = () => {
-    onChangeSearchCity(textSearch);
-  };
+    onChangeSearchCity(textSearch)
+  }
 
   const handleOutsideClick = (elClick: HTMLElement) => {
     if (elClick?.id !== ID_INPUT_SEARCH_CITY) {
-      setShowSuggest(false);
+      setShowSuggest(false)
     }
-  };
+  }
 
   const onClearTextSearch = () => {
-    setShowClearButton(false);
-    setTextSearch('');
-  };
+    setShowClearButton(false)
+    setTextSearch('')
+  }
 
   const onClickItemSuggest = (name: string) => {
-    setShowSuggest(false);
-    setTextSearch(name);
-    onChangeSearchCity(name);
-    setShowClearButton(true);
-  };
+    setShowSuggest(false)
+    setTextSearch(name)
+    onChangeSearchCity(name)
+    setShowClearButton(true)
+  }
 
   const listCitySuggest = useMemo(() => {
     return ruCities.filter(ruCity =>
       ruCity.city.toLowerCase().includes(textSearch.toLowerCase())
-    );
-  }, [textSearch]);
+    )
+  }, [textSearch])
 
   return (
     <div className="input-search-city">
@@ -64,14 +64,14 @@ const InputSearchCity = ({
           onClick={() => setShowSuggest(true)}
           placeholder="Search by city name"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setTextSearch(e.target.value);
+            setTextSearch(e.target.value)
             if (e.target.value && !showClearButton) {
-              setShowClearButton(true);
-              return;
+              setShowClearButton(true)
+              return
             }
             if (!e.target.value && showClearButton) {
-              setShowClearButton(false);
-              return;
+              setShowClearButton(false)
+              return
             }
           }}
         />
@@ -89,7 +89,7 @@ const InputSearchCity = ({
                 >
                   {highlightText(city.city, textSearch)}
                 </div>
-              );
+              )
             })}
           </ClickAwayListener>
         )}
@@ -98,7 +98,7 @@ const InputSearchCity = ({
         {isLoading ? 'Search...' : 'Search'}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default InputSearchCity;
+export default InputSearchCity
