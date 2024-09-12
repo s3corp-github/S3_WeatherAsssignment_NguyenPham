@@ -38,20 +38,20 @@ Follow these steps to get a local copy of the project up and running:
 
 - Make sure you have **Node.js** and **npm** (or **yarn**) installed on your machine.
 
-- **Node.js**:Version 16.17.0 or higher
+- **Node.js**: Version 16.17.0 or higher
 
 ### Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/weather-app.git
+   git clone https://github.com/s3corp-github/S3_WeatherAsssignment_NguyenPham.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd weather-app
+   cd S3_WeatherAsssignment_NguyenPham
    ```
 
 3. Install the dependencies:
