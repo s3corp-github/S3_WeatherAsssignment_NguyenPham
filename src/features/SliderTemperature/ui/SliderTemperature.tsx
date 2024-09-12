@@ -27,7 +27,7 @@ const SliderTemperature = ({
 
   return (
     <div className="slider-temperature">
-      <p className="slider-temperature__label">Temperature</p>
+      <p className="slider-temperature__label">Warmer than</p>
       <div className="slider-temperature__box">
         <input
           type="range"

@@ -1,1 +1,1 @@
-export { getWeatherCity } from './weatherApi'
+export { getWeatherCity, getInfoAirByLatLng } from './weatherApi'

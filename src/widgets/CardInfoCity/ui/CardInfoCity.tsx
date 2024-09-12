@@ -13,10 +13,10 @@ const CardInfoCity = ({ city, onRemoveCity }: CardInfoCityProps) => {
       </p>
       <div className="card-info-city__info">
         <p className="card-info-city__info__pm">
-          PM 10: {city?.wind?.deg} µg/m³
+          PM 10: {city?.pm10 ?? 'N/A'} µg/m³
         </p>
         <p className="card-info-city__info__wind">
-          Wind: {city?.wind?.speed} m/s
+          Wind: {city?.wind?.speed ?? 'N/A'} m/s
         </p>
       </div>
       <div className="card-info-city__btn-remove" onClick={onRemoveCity}>

@@ -47,6 +47,7 @@ const mockCity = {
   id: 524901,
   name: 'Moscow',
   cod: 200,
+  pm10: 0.5,
 }
 
 describe('CardInfoCity Component', () => {
@@ -55,7 +56,7 @@ describe('CardInfoCity Component', () => {
 
     expect(screen.getByText('Moscow, 21.96°C')).toBeInTheDocument()
 
-    expect(screen.getByText('PM 10: 144 µg/m³')).toBeInTheDocument()
+    expect(screen.getByText('PM 10: 0.5 µg/m³')).toBeInTheDocument()
 
     expect(screen.getByText('Wind: 3.39 m/s')).toBeInTheDocument()
   })
