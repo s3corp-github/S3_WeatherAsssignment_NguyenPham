@@ -1,5 +1,6 @@
-import { WeatherData } from '../../entities/infoWeather/models/interfaces'
+import { WeatherData } from '../../../entities/infoWeather/models/interfaces'
 import './CardInfoCity.css'
+
 interface CardInfoCityProps {
   city: WeatherData
   onRemoveCity(): void

@@ -1,46 +1,102 @@
-# Getting Started with Create React App
+# Weather Application 🌦️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a weather application built using **React** and **TypeScript**, following the **Feature-Sliced Design (FSD)** architecture. The app allows users to search for cities, view their current weather conditions, and filter results by temperature using live data fetched from the OpenWeather API.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Testing and Coverage](#testing-and-coverage)
 
-### `npm start`
+## Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Weather Application provides a simple and interactive interface for users to check the current weather conditions of any city worldwide. This app uses **React** and **TypeScript** to ensure type safety and scalability, and follows the **Feature-Sliced Design (FSD)** methodology to keep the codebase modular and maintainable.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- Search for weather information by city name.
+- View current weather conditions, including temperature, humidity, and wind speed.
+- Filter results based on temperature range.
+- Modular code structure following the Feature-Sliced Design (FSD) architecture.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+- **React**: Frontend library for building user interfaces.
+- **TypeScript**: Typed superset of JavaScript for better code quality.
+- **Feature-Sliced Design (FSD)**: Architectural pattern for project organization.
+- **CSS Modules**: Scoped and modular styles.
+- **OpenWeather API**: Source for real-time weather data.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Follow these steps to get a local copy of the project up and running:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+Make sure you have **Node.js** and **npm** (or **yarn**) installed on your machine.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Installation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   ```bash
+   git clone https://github.com/your-username/weather-app.git
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. Navigate to the project directory:
 
-## Learn More
+   ```bash
+   cd weather-app
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Install the dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+4. Create a .env file in the root directory and add your OpenWeather API key:
+   ```bash
+   REACT_APP_API_KEY = your_api_key_here
+   REACT_APP_BASE_URL = https://api.openweathermap.org/data/2.5/weather
+   ```
+5. Start the development server:
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
+6. Open your browser and visit http://localhost:3000 to view the app.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
+
+1. Enter the name of a city in the search bar.
+2. Select from the suggestion options or click the Search button.
+3. View the current weather conditions for the city, including temperature, humidity, and wind speed.
+4. Use the temperature filter to display cities within a specific temperature range.
+5. Click the close button in the upper right corner of the card if you want to delete the city card.
+
+## Testing and Coverage
+
+This project uses Jest and React Testing Library for unit testing. We aim for high test coverage to ensure the reliability and quality of the application. Currently, the project maintains **over 80% test coverage** across all components and functions.
+
+### Running Tests
+
+To run the tests, use the following command:
+
+    npm test
+    # or
+    yarn test
+
+### Test Coverage Report
+
+To generate a test coverage report, run:
+
+    npm test:coverage
+    # or
+    yarn test:coverage
+
+The coverage report will be output to the /coverage directory. Open the index.html file in a browser to view the detailed coverage report. **You should see that the coverage is maintained at over 80%**.

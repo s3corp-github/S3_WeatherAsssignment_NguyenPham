@@ -1,1 +1,1 @@
-export { default } from './SliderTemperature'
+export { default } from './ui'
