@@ -14,6 +14,7 @@ export const getInfoAirByLatLng = async (lat: number, lng: number) => {
   const response = await fetch(
     `${REACT_APP_BASE_URL}/air_pollution?lat=${lat}&lon=${lng}&appid=${REACT_APP_API_KEY}`
   )
+
   if (response.ok) {
     return response.json()
   }

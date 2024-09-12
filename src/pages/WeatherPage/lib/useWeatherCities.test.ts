@@ -100,26 +100,6 @@ describe('useWeatherCities', () => {
     expect(result.current.listCitiesFilterTemp[0].pm10).toBe(15.3)
   })
 
-  // test('should display a message if city already exists', async () => {
-  //   mockGetWeatherCity.mockResolvedValue(mockCity)
-
-  //   const { result } = renderHook(() => useWeatherCities())
-
-  //   act(() => {
-  //     result.current.findCityByName('Moscow')
-  //   })
-
-  //   await waitFor(() => {
-  //     expect(result.current.isLoading).toBe(false)
-  //   })
-
-  //   act(() => {
-  //     result.current.findCityByName('Moscow')
-  //   })
-
-  //   expect(result.current.message).toBe('The city is already on the list!')
-  // })
-
   test('should handle API errors gracefully', async () => {
     mockGetWeatherCity.mockRejectedValue(new Error('API error'))
 
@@ -136,7 +116,7 @@ describe('useWeatherCities', () => {
     expect(result.current.message).toBe('API error')
   })
 
-  test('should remove city from list ', async () => {
+  test('should remove city from list', async () => {
     mockGetWeatherCity.mockResolvedValue(mockCity)
     mockGetInfoAirByLatLng.mockResolvedValue(mockAirInfo)
 
