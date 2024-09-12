@@ -34,7 +34,7 @@ const useWeatherCities = () => {
             nameSearch: name,
             nameSys: res.name,
           })
-          return prev.concat(res)
+          return [res, ...prev]
         })
       }
     } catch (error) {

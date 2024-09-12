@@ -36,7 +36,9 @@ Follow these steps to get a local copy of the project up and running:
 
 ### Prerequisites
 
-Make sure you have **Node.js** and **npm** (or **yarn**) installed on your machine.
+- Make sure you have **Node.js** and **npm** (or **yarn**) installed on your machine.
+
+- **Node.js**:Version 16.17.0 or higher
 
 ### Installation
 
