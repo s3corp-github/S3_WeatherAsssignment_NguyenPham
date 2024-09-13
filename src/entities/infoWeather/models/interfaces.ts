@@ -12,6 +12,7 @@ export interface WeatherData {
   id: number
   name: string
   cod: number
+  pm10?: number
 }
 
 interface Coordinates {

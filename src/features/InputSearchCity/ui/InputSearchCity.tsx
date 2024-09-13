@@ -17,9 +17,18 @@ const InputSearchCity = ({
   const [textSearch, setTextSearch] = useState<string>('')
   const [showClearButton, setShowClearButton] = useState<boolean>(false)
   const [showSuggest, setShowSuggest] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const handleSearch = () => {
     onChangeSearchCity(textSearch)
+    if (!textSearch && !errorMessage) {
+      setErrorMessage('Please enter the name city')
+      return
+    }
+
+    if (textSearch && errorMessage) {
+      setErrorMessage('')
+    }
   }
 
   const handleOutsideClick = (elClick: HTMLElement) => {
@@ -38,6 +47,7 @@ const InputSearchCity = ({
     setTextSearch(name)
     onChangeSearchCity(name)
     setShowClearButton(true)
+    setErrorMessage('')
   }
 
   const listCitySuggest = useMemo(() => {
@@ -62,19 +72,26 @@ const InputSearchCity = ({
           type="text"
           value={textSearch}
           onClick={() => setShowSuggest(true)}
-          placeholder="Search by city name"
+          placeholder="Search by city name in Russia"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setTextSearch(e.target.value)
-            if (e.target.value && !showClearButton) {
+            const valueInput = e.target.value
+            setTextSearch(valueInput)
+            if (valueInput && errorMessage) {
+              setErrorMessage('')
+            }
+            if (valueInput && !showClearButton) {
               setShowClearButton(true)
               return
             }
-            if (!e.target.value && showClearButton) {
+            if (!valueInput && showClearButton) {
               setShowClearButton(false)
               return
             }
           }}
         />
+        {errorMessage && (
+          <p className="input-search-city__input__error">{errorMessage}</p>
+        )}
         {showSuggest && !!listCitySuggest.length && (
           <ClickAwayListener
             onClickOutside={handleOutsideClick}
@@ -94,7 +111,11 @@ const InputSearchCity = ({
           </ClickAwayListener>
         )}
       </div>
-      <button className="input-search-city__btn-search" onClick={handleSearch}>
+      <button
+        className="input-search-city__btn-search"
+        onClick={handleSearch}
+        disabled={isLoading}
+      >
         {isLoading ? 'Search...' : 'Search'}
       </button>
     </div>

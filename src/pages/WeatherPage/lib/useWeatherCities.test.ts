@@ -1,71 +1,16 @@
 import { renderHook, act, waitFor } from '@testing-library/react'
-
 import useWeatherCities from './useWeatherCities'
-import { getWeatherCity } from '../../../shared'
+import { getWeatherCity, getInfoAirByLatLng } from '../../../shared'
 
-jest.mock('.../../../shared', () => ({
+jest.mock('../../../shared', () => ({
   getWeatherCity: jest.fn(),
+  getInfoAirByLatLng: jest.fn(),
   DEFAULT_TEMPERATURE_FILTER: 10,
 }))
 
 const mockGetWeatherCity = getWeatherCity as jest.Mock
+const mockGetInfoAirByLatLng = getInfoAirByLatLng as jest.Mock
 
-describe('useWeatherCities', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
-  test('should initialize with default states', () => {
-    const { result } = renderHook(() => useWeatherCities())
-    expect(result.current.isLoading).toBe(false)
-    expect(result.current.message).toBe('')
-    expect(result.current.listCitiesFilterTemp).toEqual([])
-  })
-
-  test('should set loading state correctly', async () => {
-    mockGetWeatherCity.mockResolvedValue({
-      name: 'Moscow',
-      sys: { id: 1 },
-      main: { temp: 10 },
-    })
-
-    const { result } = renderHook(() => useWeatherCities())
-
-    act(() => {
-      result.current.findCityByName('Moscow')
-    })
-
-    expect(result.current.isLoading).toBe(true)
-
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false)
-    })
-
-    expect(result.current.listCitiesFilterTemp).toHaveLength(1)
-  })
-
-  test('should remove city from list and refListBlockCallApi', async () => {
-    mockGetWeatherCity.mockResolvedValue(mockCity)
-
-    const { result } = renderHook(() => useWeatherCities())
-
-    act(() => {
-      result.current.findCityByName('Moscow')
-    })
-
-    expect(result.current.isLoading).toBe(true)
-
-    await waitFor(() => {
-      expect(result.current.isLoading).toBe(false)
-    })
-    act(() => {
-      result.current.onRemoveCity(mockCity)
-    })
-
-    expect(result.current.listCitiesFilterTemp).toHaveLength(0)
-    expect(result.current.message).toBe('')
-  })
-})
 const mockCity = {
   coord: {
     lon: 37.6156,
@@ -112,3 +57,84 @@ const mockCity = {
   name: 'Moscow',
   cod: 200,
 }
+
+const mockAirInfo = {
+  list: [
+    {
+      components: {
+        pm10: 15.3,
+      },
+    },
+  ],
+}
+
+describe('useWeatherCities', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  test('should initialize with default states', () => {
+    const { result } = renderHook(() => useWeatherCities())
+    expect(result.current.isLoading).toBe(false)
+    expect(result.current.message).toBe('')
+    expect(result.current.listCitiesFilterTemp).toEqual([])
+  })
+
+  test('should set loading state correctly and fetch data', async () => {
+    mockGetWeatherCity.mockResolvedValue(mockCity)
+    mockGetInfoAirByLatLng.mockResolvedValue(mockAirInfo)
+
+    const { result } = renderHook(() => useWeatherCities())
+
+    act(() => {
+      result.current.findCityByName('Moscow')
+    })
+
+    expect(result.current.isLoading).toBe(true)
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false)
+    })
+
+    expect(result.current.listCitiesFilterTemp).toHaveLength(1)
+    expect(result.current.listCitiesFilterTemp[0].pm10).toBe(15.3)
+  })
+
+  test('should handle API errors gracefully', async () => {
+    mockGetWeatherCity.mockRejectedValue(new Error('API error'))
+
+    const { result } = renderHook(() => useWeatherCities())
+
+    act(() => {
+      result.current.findCityByName('UnknownCity')
+    })
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false)
+    })
+
+    expect(result.current.message).toBe('API error')
+  })
+
+  test('should remove city from list', async () => {
+    mockGetWeatherCity.mockResolvedValue(mockCity)
+    mockGetInfoAirByLatLng.mockResolvedValue(mockAirInfo)
+
+    const { result } = renderHook(() => useWeatherCities())
+
+    act(() => {
+      result.current.findCityByName('Moscow')
+    })
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false)
+    })
+
+    act(() => {
+      result.current.onRemoveCity(mockCity)
+    })
+
+    expect(result.current.listCitiesFilterTemp).toHaveLength(0)
+    expect(result.current.message).toBe('')
+  })
+})

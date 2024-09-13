@@ -1,5 +1,9 @@
 import { useMemo, useRef, useState } from 'react'
-import { DEFAULT_TEMPERATURE_FILTER, getWeatherCity } from '../../../shared'
+import {
+  DEFAULT_TEMPERATURE_FILTER,
+  getWeatherCity,
+  getInfoAirByLatLng,
+} from '../../../shared'
 import { WeatherData } from '../../../entities/infoWeather/models/interfaces'
 
 const useWeatherCities = () => {
@@ -29,13 +33,25 @@ const useWeatherCities = () => {
         setIsLoading(true)
         const res = await getWeatherCity(name)
 
-        setListCities(prev => {
-          refListBlockCallApi.current = refListBlockCallApi.current.concat({
-            nameSearch: name,
-            nameSys: res.name,
-          })
-          return [res, ...prev]
-        })
+        if (res?.coord?.lat && res?.coord?.lon) {
+          const resAirInfo = await getInfoAirByLatLng(
+            res?.coord?.lat,
+            res?.coord?.lon
+          )
+
+          if (resAirInfo?.list[0]?.components?.pm10) {
+            setListCities(prev => {
+              refListBlockCallApi.current = refListBlockCallApi.current.concat({
+                nameSearch: name,
+                nameSys: res.name,
+              })
+              return [
+                { ...res, pm10: resAirInfo?.list[0]?.components?.pm10 },
+                ...prev,
+              ]
+            })
+          }
+        }
       }
     } catch (error) {
       setMessage((error as Error).message)
@@ -52,7 +68,7 @@ const useWeatherCities = () => {
   }
 
   const listCitiesFilterTemp = useMemo(() => {
-    return listCities.filter(c => c?.main?.temp <= filterTemperature)
+    return listCities.filter(c => c?.main?.temp >= filterTemperature)
   }, [filterTemperature, listCities])
 
   return {
